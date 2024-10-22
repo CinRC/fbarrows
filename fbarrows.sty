@@ -1,0 +1,168 @@
+% This is my first package (!).
+% 
+% (c) Clément Aubert
+% LPPL LaTeX Public Project License
+%
+\NeedsTeXFormat{LaTeX2e}
+\RequirePackage{mathtools}
+\RequirePackage{xparse}
+\RequirePackage{tikz}
+\usetikzlibrary{%
+	arrows.meta,
+	decorations.pathmorphing,
+	calc}
+% https://tex.stackexchange.com/q/130894
+\ProvidesPackage{fbarrows}[2024/10/21 Custom Package]
+
+%%%%%%%%%%%%%%%%%
+% Forward arrow %
+%%%%%%%%%%%%%%%%%
+
+% We reduce the spacing above the arrow.
+% cf. https://tex.stackexchange.com/a/231918/34551
+% https://tex.stackexchange.com/q/703419/34551
+
+\newcommand\myxrightarrow[1]{
+	\xrightarrow{\raisebox{-.3ex}[\height-.8ex][\depth]{\ensuremath{\scriptstyle#1}}}
+}
+
+\newcommand\myxRightarrow[1]{
+	\xRightarrow{\raisebox{-0.3ex}[\height-.8ex][\depth]{\ensuremath{\scriptstyle#1}}}
+}%
+
+\newcommand\myxrightharpoonup[1]{
+	\xrightharpoonup{\raisebox{-0.3ex}[\height-.8ex][\depth]{\ensuremath{\scriptstyle#1}}}
+}
+
+%%%%%%%%%%%%%%%%%%
+% Backward arrow %
+%%%%%%%%%%%%%%%%%%
+
+\tikzstyle{reverse} = [%
+decorate,
+decoration={snake, amplitude=-1pt, segment length=1.5mm, pre=moveto, post length=2pt}
+] % Style for backward arrow 
+
+\tikzstyle{fb} = [arrows={- angle 45}, -{>[sep=-1pt]>}] % Style for forward & backward arrows
+
+\newcounter{sarrow}
+\NewDocumentCommand{\xrsquigarrow}{m}{ % Backward arrow
+	\stepcounter{sarrow}%
+	\mathrel{\begin{tikzpicture}[baseline= {($(current bounding box.south)$ )}]
+			\node[inner ysep=.3ex, inner xsep=.65ex] (\thesarrow) {\raisebox{.3em}[\height][\depth]{\ensuremath{\scriptstyle#1}}}; % 
+			\draw[-{Computer Modern Rightarrow[scale=0.8]}, reverse] ($(\thesarrow.south west)+(0, 0.1)$) -- ($(\thesarrow.south east)+(0, 0.1)$); %  (\thesarrow.210) -- (\thesarrow.330); % $
+	\end{tikzpicture}}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Forward & Backward arrow %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newcommand{\tootip}{\mathrel{\tikz[anchor=base, baseline = -.2]{\draw[-{Computer Modern Rightarrow[scale=0.7]}](0,0)--(.01,0);}}} % https://tex.stackexchange.com/a/645771/34551
+% to pick right arrow tip, cf.
+% https://tikz.dev/tikz-arrows#sec-16.5
+% acmart uses newtxmath, so that's as close as I could get, at least according to
+% https://tex.stackexchange.com/questions/565112/how-make-tikz-arrow-tips-match-tips-of-newtxmath-fonts-arrows
+
+% https://tex.stackexchange.com/a/260581/34551
+\newcommand{\rightarrowdbl}{
+	\ooalign{ % https://tex.stackexchange.com/a/22375/34551
+		$\rightarrow$\cr %
+		\hidewidth\raise.23em\hbox{$\tootip\mkern4mu$}}
+}
+
+\newcommand{\xrightarrowdbl}[1]{%
+	\ooalign{%
+		$\myxrightarrow{#1\mkern2mu}$\cr%
+		\hidewidth\raise.23em\hbox{$\tootip\mkern4mu$}}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Macro putting it together %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ExplSyntaxOn
+\RenewDocumentCommand{\r}{m o o o} 
+% m = direction (b, f, bf)
+% o = label
+% o = key
+% o = proved
+% Assumption is that you will never have a key without a label.
+{
+	\IfNoValueTF{#4}{% Bare systems
+		\str_case:nnF { #1 }
+		{
+			{a}{ % Any
+				\IfValueTF{#2} % We test if the label is here.
+				{
+					\myxRightarrow{#2} % any, a label
+				}
+				{ 
+					\Rightarrow 
+				} % any, no label
+			}
+			{c}{ % ccs
+				\IfValueTF{#2} % We test if the label is here.
+				{
+					\myxrightharpoonup{#2} % ccs, a label
+				}
+				{ 
+					\rightharpoonup
+				} % ccs, no label
+			}
+			{f}{% Forward case
+				\IfValueTF{#2} % We test if the label is here.
+				{
+					\IfValueTF{#3}% We test if the key is here.
+					{\myxrightarrow{#2[#3]} } % Forward,  label and key
+					{\myxrightarrow{#2}} % Forward, a label but no key
+				}
+				{ \rightarrow } % Forward, no label nor key
+			}
+			{b}{% backward case
+				\IfValueTF{#2} % We test if the label is here.
+				{
+					\IfValueTF{#3}% We test if the key is here.
+					{\xrsquigarrow{#2[#3]}} % Backward,  label and key
+					{\xrsquigarrow{#2}} % Backward, a label but no key
+				}
+				{ \xrsquigarrow{\mkern10mu} } % Backward, no label nor key
+			}
+			{fb}{ % Forward and backward case
+				\IfValueTF{#2} % We test if the label is here.
+				{
+					\IfValueTF{#3}% We test if the key is here.
+					{ \xrightarrowdbl{#2[#3]}} % Forward and backward, label and key
+					{ \xrightarrowdbl{#2}} % Forward and backward, a label but no key
+				}
+				{\rightarrowdbl} % Forward and backward, no label nor key
+			}
+			{bf}{
+				\r{fb}[#2][#3][#4]	
+			}
+		}
+		{ #1 }
+	}
+	{ % proved system
+		
+		\str_case:nnF { #1 } % which system?
+		{
+			{b}{% backward case needs some accomodation
+				\mathrel{{\mapstochar\mkern1mu \r{#1}[#2][#3]}}
+			}
+			{bf}{% backward & forward case needs some accomodation
+				\mathrel{{\mapstochar\mkern-5mu \r{#1}[#2][#3]}}
+			}
+			{fb}{% forward & backward case needs some accomodation (same as above, it's an alias)
+				\mathrel{{\mapstochar\mkern-5mu \r{#1}[#2][#3]}}
+			}
+		}{\mathrel{ {\mapstochar \r{#1}[#2][#3]}}}
+	}
+}
+
+
+\NewDocumentCommand{\pr}{m o o}{
+	\r{#1}[#2][#3][p]
+} 
+\ExplSyntaxOff

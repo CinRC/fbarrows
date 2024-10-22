@@ -1,0 +1,56 @@
+% !TeX document-id = {0f633dbb-6d1c-49f5-b754-fb8660acacac}
+% !TeX TS-program = pdflatex
+
+\documentclass{scrartcl} % We use the "koma-script article" class ( https://www.ctan.org/pkg/scrartcl )
+\usepackage{fbarrows}
+
+% \tikzset{>={Computer Modern Rightarrow}} % Have all the arrow tips match the tips of CM. 
+
+\usepackage{csquotes}
+
+\title{fbarrows -- A package to draw \enquote{forward} and \enquote{backward} arrows}
+\author{Clément Aubert}
+
+\begin{document}
+	\maketitle 
+	
+	This package provides macros for 8 different types of arrows: 
+	
+\begin{tabular}{| l | l | c | l | c | l |}
+	\hline 
+	 Type & \multicolumn{2}{c|}{Without \(\mapstochar\) char} & \multicolumn{2}{c|}{With \(\mapstochar\) char} \\
+	\hline 
+	& Arrow & Macro & Arrow & Macro \\
+	\hline
+	Straight, half tip & $X \r{c}[a] Y$  & \verb|\r{c}[a]| &  $P \pr{c}[a] Q$  & \verb|\pr{c}[a]| \\
+	\hline 
+	Straight, full tip & $X \r{f}[a][m] Y$ & \verb|\r{f}[a][m]| & $X \pr{f}[a][m] Y$ & \verb|\pr{f}[a][m]|\\
+	\hline 
+	Squigly, full tip & $X \r{b}[a][m] Y$ & \verb|\r{b}[a][m]| & $X \pr{b}[a][m] Y$ & \verb|\pr{b}[a][m]|\\
+	\hline 
+	Straight, double tip & $X \r{fb}[a][m] Y$ & \verb|\r{fb}[a][m]| & $X \pr{fb}[a][m] Y$ & \verb|\pr{fb}[a][m]|\\
+	\hline
+\end{tabular} 
+
+The second optional argument is not available for the \verb|\r{c}| and \verb|\pr{c}| for \enquote{historical} reasons, but could be added if needed.
+
+It accomodates reasonably well subscripts and superscripts in the labels:
+
+\begin{tabular}{| c | l |}
+	\hline 
+	Arrow & Macro \\
+	\hline 
+	$P \pr{c}[\theta_{E}^i] Q$  & \verb|\pr{c}[\theta_{E}^i]| \\
+	\hline 
+	$X \pr{f}[\theta_{E}^i] Y$ & \verb|\pr{f}[\theta_{E}^i]|\\
+	\hline 
+	$X \pr{b}[\theta_{E}^i] Y$ & \verb|\pr{b}[\theta_{E}^i]|\\
+	\hline 
+	$X \pr{fb}[\theta_{E}^i] Y$ & \verb|\pr{fb}[\theta_{E}^i]|\\
+	\hline
+\end{tabular} 
+
+Note that we can use \verb|bf| or \verb|fb| with the same result.
+
+\emph{Todo: add corresponding Ti\emph{k}Z drawings.}
+\end{document}
