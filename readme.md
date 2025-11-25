@@ -2,11 +2,11 @@
 
 This package provides macros for 8 different types of arrows: 
 
-| Type                 | Without \(\mapstochar\) char | With \(\mapstochar\) char |
+| Type                 | Without $\mapstochar$[^1] char | With $\mapstochar$ char |
 |----------------------|---------------------------------------------------|------------------------------------------------|
-| Straight, half tip   | !["Preview of the letterhead (page 1)"](previews/c-1.png) | \verb|\r{c}[a]|                                |
-| Straight, full tip   | $X \r{f}[a][m] Y$                                 | \verb|\r{f}[a][m]|                             |
-| Squigly, full tip    | $X \r{b}[a][m] Y$                                 | \verb|\r{b}[a][m]|                             |
-| Straight, double tip | $X \r{fb}[a][m] Y$                                | \verb|\r{fb}[a][m]|                            |
+| Straight, half tip   | !["Preview of the straight, half tip arrow without mapstochar"](previews/c-1.png) | !["Preview of the straight, half tip arrow with mapstochar"](previews/pc-1.png) |                                |
+| Straight, full tip   | !["Preview of the straight, full tip arrow without mapstochar"](previews/f-1.png) | !["Preview of the straight, full tip arrow with mapstochar"](previews/pf-1.png) |                         |
+| Squigly, full tip    | !["Preview of the squigly, full tip arrow without mapstochar"](previews/b-1.png) | !["Preview of the squigly, full tip arrow with mapstochar"](previews/pb-1.png) |                         |
+| Straight, double tip | !["Preview of the straight, double tip arrow without mapstochar"](previews/bf-1.png) | !["Preview of the straight, double tip arrow with mapstochar"](previews/pbf-1.png) |      
 
-(Note that mapstochar does not seem to [exist in unicode](https://github.com/latex3/mathtools/issues/45).
+[^1]: Note that mapstochar does not seem to [exist in unicode](https://github.com/latex3/mathtools/issues/45).
