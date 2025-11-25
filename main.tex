@@ -49,6 +49,25 @@
 		$X \pr{fb}[\theta_{E}^i] Y$ & \verb|\pr{fb}[\theta_{E}^i]|\\
 		\hline
 	\end{tabular} 
+
+The commands \verb|\fbarrowraise| and \verb|\fbarrowheight| (both set by default to -0.3ex) can be redefined to give more room to labels:
+
+\renewcommand{\fbarrowraise}{0.1ex}
+\renewcommand{\fbarrowheight}{0.6ex}
+
+	\begin{tabular}{| c | l |}
+	\hline 
+	Arrow & Macro \\
+	\hline 
+	$P \pr{c}[\theta_{E}^i] Q$  & \verb|\pr{c}[\theta_{E}^i]| \\
+	\hline 
+	$X \pr{f}[\theta_{E}^i] Y$ & \verb|\pr{f}[\theta_{E}^i]|\\
+	\hline 
+	$X \pr{b}[\theta_{E}^i] Y$ & \verb|\pr{b}[\theta_{E}^i]|\\
+	\hline 
+	$X \pr{fb}[\theta_{E}^i] Y$ & \verb|\pr{fb}[\theta_{E}^i]|\\
+	\hline
+\end{tabular} 
 	
 	Note that we can use \verb|bf| or \verb|fb| with the same result.
 	

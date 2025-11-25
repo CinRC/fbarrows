@@ -12,7 +12,11 @@
 	decorations.pathmorphing,
 	calc}
 % https://tex.stackexchange.com/q/130894
-\ProvidesPackage{fbarrows}[2024/10/21 Custom Package]
+\ProvidesPackage{fbarrows}[2025/11/25 Custom Package]
+
+\newcommand{\fbarrowraise}{-0.3ex}
+\newcommand{\fbarrowheight}{-0.3ex}
+
 
 %%%%%%%%%%%%%%%%%
 % Forward arrow %
@@ -23,15 +27,15 @@
 % https://tex.stackexchange.com/q/703419/34551
 
 \newcommand\myxrightarrow[1]{
-	\xrightarrow{\raisebox{-.3ex}[\height-.8ex][\depth]{\ensuremath{\scriptstyle#1}}}
+	\xrightarrow{\raisebox{\fbarrowraise}[\height + \fbarrowheight][\depth]{\ensuremath{\scriptstyle#1}}}
 }
 
 \newcommand\myxRightarrow[1]{
-	\xRightarrow{\raisebox{-0.3ex}[\height-.8ex][\depth]{\ensuremath{\scriptstyle#1}}}
+	\xRightarrow{\raisebox{\fbarrowraise}[\height + \fbarrowheight][\depth]{\ensuremath{\scriptstyle#1}}}
 }%
 
 \newcommand\myxrightharpoonup[1]{
-	\xrightharpoonup{\raisebox{-0.3ex}[\height-.8ex][\depth]{\ensuremath{\scriptstyle#1}}}
+	\xrightharpoonup{\raisebox{\fbarrowraise}[\height + \fbarrowheight][\depth]{\ensuremath{\scriptstyle#1}}}
 }
 
 %%%%%%%%%%%%%%%%%%
@@ -49,7 +53,7 @@ decoration={snake, amplitude=-1pt, segment length=1.5mm, pre=moveto, post length
 \NewDocumentCommand{\xrsquigarrow}{m}{ % Backward arrow
 	\stepcounter{sarrow}%
 	\mathrel{\begin{tikzpicture}[baseline= {($(current bounding box.south)$ )}]
-			\node[inner ysep=.3ex, inner xsep=.65ex] (\thesarrow) {\raisebox{.3em}[\height][\depth]{\ensuremath{\scriptstyle#1}}}; % 
+			\node[inner ysep=.3ex, inner xsep=.65ex] (\thesarrow) {\raisebox{\fbarrowraise + .9ex}[\height + \fbarrowheight + .9ex][\depth]{\ensuremath{\scriptstyle#1}}}; % 
 			\draw[-{Computer Modern Rightarrow[scale=0.8]}, reverse] ($(\thesarrow.south west)+(0, 0.1)$) -- ($(\thesarrow.south east)+(0, 0.1)$); %  (\thesarrow.210) -- (\thesarrow.330); % $
 	\end{tikzpicture}}%
 }
