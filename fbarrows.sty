@@ -55,7 +55,7 @@ decoration={snake, amplitude=-1pt, segment length=1.5mm, pre=moveto, post length
 \NewDocumentCommand{\xrsquigarrow}{m}{ % Backward arrow
 	\stepcounter{sarrow}%
 	\mathrel{\begin{tikzpicture}[baseline= {($(current bounding box.south)$ )}]
-			\node[inner ysep=.3ex, inner xsep=.65ex] (\thesarrow) {\raisebox{\fbarrowraise + .9ex}[\height + \fbarrowheight + .9ex][\depth]{\ensuremath{\scriptstyle#1}}}; % 
+			\node[inner ysep=.3ex, inner xsep=.65ex] (\thesarrow) {\raisebox{\fbarrowraise + 1ex}[\height + \fbarrowheight + .9ex][\depth]{\ensuremath{\scriptstyle#1}}}; % 
 			\draw[-{Computer Modern Rightarrow[scale=0.8]}, reverse] ($(\thesarrow.south west)+(0, .65ex)$) -- ($(\thesarrow.south east)+(0, .65ex)$); %  (\thesarrow.210) -- (\thesarrow.330); % $
 	\end{tikzpicture}}%
 }
@@ -159,7 +159,7 @@ decoration={snake, amplitude=-1pt, segment length=1.5mm, pre=moveto, post length
 				\mathrel{{\mapstochar\mkern1.3mu \r{#1}[#2][#3]}}
 			}
 		}{
-			\mathrel{ {\mapstochar\mkern.2mu \r{#1}[#2][#3]}}
+			\mathrel{{\mapstochar\mkern.2mu \r{#1}[#2][#3]}}
 		}
 	}
 }
