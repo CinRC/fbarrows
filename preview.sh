@@ -4,7 +4,7 @@ strings=(
     f
     bf
 )
-mkdir -f previews/
+mkdir -p previews/
 for i in "${strings[@]}"; do
     echo "$i"
     cat <<EOF > previews/${i}.tex
