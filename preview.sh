@@ -25,6 +25,6 @@ EOF
 
 latexmk -pdf -cd previews/${i}.tex
 latexmk -pdf -cd previews/p${i}.tex
-pdftoppm -r 300 previews/${i}.pdf previews/${i} -png 
-pdftoppm -r 300 previews/p${i}.pdf previews/p${i} -png 
+pdftoppm -r 200 previews/${i}.pdf previews/${i} -png 
+pdftoppm -r 200 previews/p${i}.pdf previews/p${i} -png 
 done    
